@@ -1,12 +1,22 @@
 import React from 'react'
-import {BrowserRouter as Router, Route, NavLink, Switch} from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
 import MenuLink from './MenuLink'
+import { Drawer, Button, List } from '@material-ui/core'
+import Divider from '@material-ui/core/Divider';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import InboxIcon from '@material-ui/icons/MoveToInbox';
+import MailIcon from '@material-ui/icons/Mail';
+import BurgerMenu from '@material-ui/icons/MenuRounded';
 
 const styles = theme => ({
     root: {
         flexGrow: 1
     },
+    list: {
+        width: 250,
+      },
     container: {
         display: 'flex',
         flexDirection: 'column',
@@ -34,33 +44,74 @@ const styles = theme => ({
 
 const NoMatch = () => (<div>NO MATCH</div>)
 
+//Configure when a link is active. On wait!!!!!
 const linkActive = (match, location) => {
     console.log(match)
     console.log(location)
 }
 
-const Menu = ({classes, filter}) => {
+const ListItemMenu = ({text, filter}) => {
     return(
-            <div className={classes.container}>
-            <nav className={classes.nav}>
-                    <li className={classes.navItem}>
-                        <MenuLink filter=' '>
-                            Index
-                        </MenuLink>
-                    </li>
-                    <li className={classes.navItem}>
-                        <MenuLink filter='exercises'>
-                            Exercises
-                        </MenuLink>
-                    </li>
-                    <li className={classes.navItem}>
-                        <MenuLink filter='routine'>
-                            Routine
-                        </MenuLink>
-                    </li>
-            </nav>
-        </div>
-    ) 
+        <ListItem button key={text}>
+        <ListItemIcon>{filter===''? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+            <MenuLink filter={filter}>
+                {text}
+            </MenuLink>
+        </ListItem>
+    )
+}
+
+class Menu extends React.Component {
+    state = {
+        openMenu: false
+    }
+
+    toggleDrawer = () => () => {
+        this.setState((state, props) => ({
+            openMenu: !state.openMenu
+        }))
+    }
+
+    render(){
+        const  {classes, filter} = this.props
+
+        const sideList = (
+            <div className={classes.list}>
+            <List>
+                <ListItemMenu text='Index' filter=' '/>
+                <ListItemMenu text='Exercises' filter='exercises'/>
+                <ListItemMenu text='Routine' filter='routine'/>
+            </List>
+              <Divider />
+              <List>
+                {['All mail', 'Trash', 'Spam'].map((text, index) => (
+                  <ListItem button key={text}>
+                    <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+                    <ListItemText primary={text} />
+                  </ListItem>
+                ))}
+              </List>
+            </div>
+          );
+
+    return(
+        <div>
+            <Button variant="outlined" size="small" color="secondary" onClick={this.toggleDrawer()}>
+            <BurgerMenu style={{ fontSize: 25 }}/>
+            </Button>
+            <Drawer anchor="right" open={this.state.openMenu} onClose={this.toggleDrawer()}>
+                <div
+                    tabIndex={0}
+                    role="button"
+                    onClick={this.toggleDrawer('right', false)}
+                    onKeyDown={this.toggleDrawer('right', false)}
+                >
+                    {sideList}
+                </div>
+        </Drawer>
+    </div>
+    )
+    } 
 }
 
 export default withStyles(styles)(Menu)

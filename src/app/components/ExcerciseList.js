@@ -21,6 +21,7 @@ import CloseIcon from '@material-ui/icons/Close'
 import Slide from '@material-ui/core/Slide'
 import toRenderProps from 'recompose/toRenderProps'
 import withWidth from '@material-ui/core/withWidth'
+import MainButton from "../containers/MainButton"
 
 
 const styles = theme => ({
@@ -152,6 +153,7 @@ class ExcerciseList extends React.Component{
   
   return(
     <div className={classes.root}>
+    <div><MainButton /></div>
       <Grid
         container
         direction="row"
@@ -168,7 +170,7 @@ class ExcerciseList extends React.Component{
               <div className={classes.desc}>
                 <CardMedia
                   className={classes.cover}
-                  image={ excercise.images.length > 0
+                  image={ excercise.images && excercise.images.length > 0
                     ? excercise.images[0]
                     :_properties.IMG_DEFAULT 
                   }
