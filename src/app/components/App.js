@@ -7,6 +7,7 @@ import { musclesByDefault } from '../actions'
 import { Switch, Route, withRouter} from 'react-router-dom'
 import Routine from "./Routine";
 
+
 class App extends Component {
 
   componentDidMount(){
@@ -30,6 +31,8 @@ class App extends Component {
     return (
       <Fragment>
         <Header filter={filter || ''}/>
+        
+        <Route exact path='/' component={Excercises} />
         <Route exact path='/exercises' component={Excercises} />
         <Route path='/routine' component={Routine} />
         <Footer />

@@ -2,7 +2,7 @@ import React, { Fragment } from "react"
 import {
   Grid,
   Typography,
-  Card, CardMedia, CardContent
+  Card, CardMedia, CardContent, List, ListItem, ListItemText
 } from "@material-ui/core"
 import * as _properties from "../constants/Properties"
 import DeleteIcon from "@material-ui/icons/Delete"
@@ -22,7 +22,8 @@ import Slide from '@material-ui/core/Slide'
 import toRenderProps from 'recompose/toRenderProps'
 import withWidth from '@material-ui/core/withWidth'
 import MainButton from "../containers/MainButton"
-
+import SwipeableImg from './SwipeableImg'
+import Drawer from '@material-ui/core/Drawer'
 
 const styles = theme => ({
   root: {
@@ -78,18 +79,35 @@ const styles = theme => ({
   cardDescription: {
     maxWidth: 400,
   },
+  swipeable: {
+    display:'inline-flex'
+  },
   media: {
-    height: 0,
-    marginTop: '20px',
-    paddingTop: '100%', // 16:9
+
   },
   appBar: {
-    position: 'relative',
+    position: 'fixed',
+    zIndex: theme.zIndex.drawer + 1,
+    backgroundColor: '#981515'
   },
   flex: {
     flex: 1,
   },
-
+  drawer: {
+    width: '320',
+    flexShrink: 0,
+  },
+  drawerPaper: {
+    width: '320',
+  },
+  drawerImage: {
+    marginTop: 3,
+    width: '320px'
+  },
+  textDesc: {
+    marginTop: '70px',
+    marginLeft: '170px'
+  }
 });
 
 function Transition(props) {
@@ -211,41 +229,46 @@ class ExcerciseList extends React.Component{
             </Toolbar>
           </AppBar>
 
-          <div>
           <WithWidth>
           {
             ({ width }) => {
               if(width==='xs'){
                 return(
-                <SwipeableViews index={index} onChangeIndex={this.handleChangeIndex}>
                 <div>
-                    {images[0]}
+                <SwipeableImg exercise={excercise} />
                 </div>
-                <div>
-                    {images[1]}
-                </div>
-                </SwipeableViews>
                 )
               }
               else{
                 return(
-                <div>
-                  {images}
-                </div>
+                  <div>
+                  <Drawer
+                    className={classes.drawer}
+                    variant="permanent"
+                    classes={{
+                      paper: classes.drawerPaper,
+                    }}>
+                    <List style={{marginTop: '55px'}}>
+                      {
+                        excercise.images.map((url, index) => (
+                        <ListItem button key={index}>
+                          <img src={url} className={classes.cover}/>
+                        </ListItem>
+                        ))}
+                    </List>
+                  </Drawer>
+                  <Typography variant="subheading" className={classes.textDesc}>
+                  {
+                    description
+                  }
+                  </Typography>
+                  </div>
                 )
               }
               //return <div>{`Current width: ${width}`}</div>
             }
           }
           </WithWidth>
-
-          <Typography variant="subheading" style={{ margin: 5 }}>
-            {
-              description
-            }
-          </Typography>
-          
-        </div>
         </Dialog>
       </div>
     </div>
