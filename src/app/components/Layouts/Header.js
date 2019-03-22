@@ -1,19 +1,22 @@
 import React from "react"
-import { AppBar, Toolbar, Typography } from "@material-ui/core"
+import { Typography } from "@material-ui/core"
 import Menu from "../../components/Menu"
 import { withRouter } from 'react-router-dom'
+import { Grid } from '@material-ui/core'
 
 const Header = ({ filter }) => (
-  <React.Fragment>
-    <AppBar position="relative">
-      <Toolbar>
-        <Typography variant="headline" color="inherit" style={{ flex: 1 }}>
-          Excercises database
+  <div style={{flexGrow: 1}}>
+    <Grid container justify="space-between" alignItems="center">
+      <Grid item>
+        <Typography variant="h6" color="inherit" style={{marginLeft: '5px'}}>
+          Pick up some Exercises
         </Typography>
+      </Grid>
+      <Grid item> 
         <Menu filter={filter}/>
-      </Toolbar>
-    </AppBar>
-  </React.Fragment>
+      </Grid>
+    </Grid>
+  </div>
 );
 
 export default withRouter(Header)

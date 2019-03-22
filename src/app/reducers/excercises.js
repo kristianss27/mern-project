@@ -5,38 +5,30 @@ import {
   REQUEST_EXCERCISES,
   RECEIVE_EXCERCISES,
   INVALIDATE_EXERCISES
-} from "../constants/ActionTypes";
+} from '../constants/ActionTypes'
 import { excercises as excercisesByDefault } from '../store'
-
 
 export default function excercises(
   state = {
     isFetching: false,
     didInvalidate: false,
     items: [...excercisesByDefault]
-  }
-  , action) {
+  },
+  action
+) {
   switch (action.type) {
     case ADD_EXCERCISE:
-    const array = {
-      items:[
-        ...state.items,
-        {
-          id: action.id,
-          title: action.title,
-          muscles: action.muscles,
-          description: action.description,
-        }
-      ]
-    }
-      return array;
+      const array = {
+        items: [...state.items, action.exercise]
+      }
+      return array
     case INVALIDATE_EXERCISES:
       return {
         ...state,
         didInvalidate: true
       }
     case DELETE_EXCERCISE:
-      return{
+      return {
         ...state,
         items: state.items.filter(excercise => excercise.id !== action.id)
       }
@@ -44,11 +36,10 @@ export default function excercises(
       return {
         ...state,
         items: state.items.map(excercise => {
-        excercise= excercise.id===action.excercise.id
-        ? action.excercise
-        : excercise
-        return excercise
-      })
+          excercise =
+            excercise.id === action.excercise.id ? action.excercise : excercise
+          return excercise
+        })
       }
     case REQUEST_EXCERCISES:
       return {
@@ -59,13 +50,11 @@ export default function excercises(
     case RECEIVE_EXCERCISES:
       return {
         ...state,
-        items: [
-        ...action.items,...state.items
-        ],
+        items: [...action.items, ...state.items],
         isFetching: false,
         didInvalidate: false
       }
     default:
-      return state;
+      return state
   }
 }

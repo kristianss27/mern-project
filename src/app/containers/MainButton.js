@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
-import FormExcercise from "../components/FormExcercise";
-import { addExcercise, openForm, 
+import DialogExercise from "../components/DialogExercise";
+import { openForm, 
   setExcercise, editExcercise} from "../actions";
 import { muscles } from "../store";
 
@@ -11,10 +11,6 @@ const mapStateToProps = (state, ownProps) => ({
 })
 
 const mapDispatchToProps = (dispatch,ownProps) => ({
-  addExcercise: excercise => {
-    dispatch(addExcercise(excercise))
-    dispatch(openForm(false))
-  },
   handleToggle: (open) => {
     dispatch(openForm(open))
   },
@@ -29,4 +25,4 @@ const mapDispatchToProps = (dispatch,ownProps) => ({
 
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(FormExcercise);
+export default connect(mapStateToProps, mapDispatchToProps)(DialogExercise);

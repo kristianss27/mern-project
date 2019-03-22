@@ -1,9 +1,10 @@
-import { combineReducers } from "redux";
-import excercises from "./excercises";
-import excercise from "./excercise";
-import category from "./category";
+import { combineReducers } from "redux"
+import excercises from "./excercises"
+import excercise from "./excercise"
+import category from "./category"
 import muscles from "./muscles"
-import openForm from "./openForm";
+import openForm from "./openForm"
+import workout from "./workout"
 import musclesByDetail from "./musclesByDetail"
 
 const reducer = combineReducers({
@@ -12,7 +13,8 @@ const reducer = combineReducers({
   excercises,
   category,
   excercise,
-  openForm
+  openForm,
+  workout
 });
 
-export default reducer;
+export default reducer

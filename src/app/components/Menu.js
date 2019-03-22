@@ -9,6 +9,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import BurgerMenu from '@material-ui/icons/MenuRounded';
+import { IconButton } from '@material-ui/core'
 
 const styles = theme => ({
     root: {
@@ -96,9 +97,9 @@ class Menu extends React.Component {
 
     return(
         <div>
-            <Button variant="outlined" size="small" color="secondary" onClick={this.toggleDrawer()}>
+            <IconButton aria-label="Menu" color="secondary" style={{marginRight: '5px'}} onClick={this.toggleDrawer()}>
             <BurgerMenu style={{ fontSize: 25 }}/>
-            </Button>
+            </IconButton>
             <Drawer anchor="right" open={this.state.openMenu} onClose={this.toggleDrawer()}>
                 <div
                     tabIndex={0}

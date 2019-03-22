@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { Header } from "./Layouts";
-import Footer from "../containers/Footer";
 import Excercises from "../containers/Excercises";
+import Footer from "../containers/Footer";
 import { connect } from 'react-redux'
 import { musclesByDefault } from '../actions'
 import { Switch, Route, withRouter} from 'react-router-dom'
@@ -35,6 +35,7 @@ class App extends Component {
         <Route exact path='/' component={Excercises} />
         <Route exact path='/exercises' component={Excercises} />
         <Route path='/routine' component={Routine} />
+
         <Footer />
       </Fragment>
     );

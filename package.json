@@ -7,11 +7,13 @@
   "dependencies": {
     "@material-ui/core": "3.9.2",
     "@material-ui/icons": "3.0.2",
+    "@material-ui/styles": "3.0.0-alpha.10",
     "@material-ui/system": "3.0.0-alpha.2",
     "@material-ui/utils": "3.0.0-alpha.3",
     "classnames": "2.2.6",
     "cross-fetch": "3.0.1",
     "express": "4.16.4",
+    "formik": "1.5.1",
     "html-react-parser": "0.6.1",
     "mongoose": "5.4.16",
     "morgan": "1.9.1",
@@ -27,7 +29,8 @@
     "redux": "4.0.1",
     "redux-logger": "3.0.6",
     "redux-thunk": "2.3.0",
-    "typeface-roboto": "0.0.54"
+    "typeface-roboto": "0.0.54",
+    "yup": "0.27.0"
   },
   "devDependencies": {
     "@babel/core": "7.3.4",

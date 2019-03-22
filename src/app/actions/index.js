@@ -2,12 +2,9 @@ import * as types from '../constants/ActionTypes'
 import * as properties from '../constants/Properties.js'
 import fetch from 'cross-fetch'
 
-export const addExcercise = newExcercise => ({
+export const addExcercise = exercise => ({
   type: types.ADD_EXCERCISE,
-  id: newExcercise.id,
-  title: newExcercise.title,
-  description: newExcercise.description,
-  muscles: newExcercise.muscles
+  exercise
 })
 
 export const deleteExcercise = id => ({
@@ -129,7 +126,7 @@ const fetchMusclesByDetail = musclesByDetail => dispatch => {
   //dispatch(requestMusclesByDetail(musclesByDetail));
   return fetch(properties.URL_MUSCLES_BY_DETAIL)
     .then(response => {
-      if (response.status >= 400){
+      if (response.status >= 400) {
         dispatch(invalidateMusclesByDetail(musclesByDetail))
         throw new Error(
           `bad response from server using this endpoint:${
@@ -139,8 +136,7 @@ const fetchMusclesByDetail = musclesByDetail => dispatch => {
       }
       return response.json()
     })
-    .then(json => dispatch(receiveMusclesByDetail(musclesByDetail, json))
-    )
+    .then(json => dispatch(receiveMusclesByDetail(musclesByDetail, json)))
     .catch(err => {
       console.error(err)
     })
@@ -178,7 +174,7 @@ export const receiveExcercises = (excercises, json, muscleName) => {
   }
 }
 
-export const invalidateExcercises = (excercises) => ({
+export const invalidateExcercises = excercises => ({
   type: types.INVALIDATE_EXERCISES,
   excercises
 })
@@ -199,9 +195,7 @@ export const fetchExcercisesByMuscle = (category, muscleName, excercises) => (
       }
       return response.json()
     })
-    .then(json =>
-      dispatch(receiveExcercises(excercises, json, muscleName))
-    )
+    .then(json => dispatch(receiveExcercises(excercises, json, muscleName)))
     .catch(err => {
       console.error(err)
     })
